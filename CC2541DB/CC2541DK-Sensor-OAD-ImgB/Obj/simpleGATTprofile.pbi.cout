@@ -1,4 +1,4 @@
-"E:\Program Files\TI\BLE-CC254x-1.4.1.43908b\Projects\ble\Profiles\SensorProfile\CC254x\GameProfile\CC254x\simpleGATTprofile.c"
+"E:\Program Files\TI\BLE-CC254x-1.4.1.43908b\Projects\ble\Profiles\SensorProfile\CC254x\simpleGATTprofile.c"
 -std=c99
 -ferror-limit=100
 -I

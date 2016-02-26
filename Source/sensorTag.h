@@ -67,27 +67,7 @@ extern "C"
  * MACROS
  */
 
-   
-/*********************************************************************
- * TYPEDEF
- */   
-   
-   typedef enum myenum1{
-     Button1Action,
-     Button2Action,
-     TempratureAction,
-     ShakeAction,
-     MoveUPAction,
-     MoveDownAction,
-     MoveLeftAction,
-     MoveRightAction,
-     TotalActionCount
-   } ActionEnum;
- 
-      typedef enum myenum2{
-     SendAction,
-     RcieveAction
-   } StateEnum;
+
 /*********************************************************************
  * FUNCTIONS
  */
@@ -106,7 +86,7 @@ extern uint16 SensorTag_ProcessEvent( uint8 task_id, uint16 events );
 /*
  * Task Event Processor for the Game Application
  */
-extern uint16 Game_ProcessEvent( uint8 task_id, uint16 events );
+extern uint16 Game_ProcessEvent( uint8 task_id, uint16 events ); //TODO: init function
 
 
 /*

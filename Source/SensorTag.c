@@ -97,6 +97,8 @@
 #include "hal_mag.h"
 #include "hal_bar.h"
 #include "hal_gyro.h"
+    
+#include "game.h"
 
 /*********************************************************************
  * MACROS
@@ -192,7 +194,6 @@
  * LOCAL VARIABLES
  */
 static uint8 sensorTag_TaskID;   // Task ID for internal task/event processing
-static uint32 StartSystime;
 static gaprole_States_t gapProfileState = GAPROLE_INIT;
 
 // GAP - SCAN RSP data (max size = 31 bytes)
@@ -462,7 +463,7 @@ void SensorTag_Init( uint8 task_id )
   Accel_AddService();                             // Accelerometer Service
   Humidity_AddService();                          // Humidity Service
   Magnetometer_AddService();                      // Magnetometer Service
-  SimpleProfile_AddService(SIMPLEPROFILE_SERVICE);
+  SimpleProfile_AddService();
   Barometer_AddService();                         // Barometer Service
   Gyro_AddService();                              // Gyro Service
   SK_AddService( GATT_ALL_SERVICES );             // Simple Keys Profile
@@ -515,65 +516,7 @@ void SensorTag_Init( uint8 task_id )
   osal_set_event( sensorTag_TaskID, ST_START_DEVICE_EVT );
 }
 
-/*********************************************************************
- * @fn      SensorTag_ProcessEvent
- *
- * @brief   Simple BLE Peripheral Application Task event processor.  This function
- *          is called to process all events for the task.  Events
- *          include timers, messages and any other user defined events.
- *
- * @param   task_id  - The OSAL assigned task ID.
- * @param   events - events to process.  This is a bit map and can
- *                   contain more than one event.
- *
- * @return  events not processed
- */
-void getAction(ActionEnum* CurrentAction){
-  
-  uint8 RandomAction;
-  RandomAction = rand() % TotalActionCount;
-  
-  *CurrentAction = RandomAction;
-  
-}
-/*********************************************************************
- * @fn      SensorTag_ProcessEvent
- *
- * @brief   Simple BLE Peripheral Application Task event processor.  This function
- *          is called to process all events for the task.  Events
- *          include timers, messages and any other user defined events.
- *
- * @param   task_id  - The OSAL assigned task ID.
- * @param   events - events to process.  This is a bit map and can
- *                   contain more than one event.
- *
- * @return  events not processed
- */
-uint16 Game_ProcessEvent( uint8 task_id, uint16 action)
-{
-  VOID task_id; // OSAL required parameter that isn't used in this function
-  
-  ActionEnum DoneAction;
-  ActionEnum CurrentAction;
-  
-  static StateEnum CurrentState = SendAction ;
-  
-  if (CurrentState == SendAction){
-    CurrentState = RcieveAction;
-    getAction(&CurrentAction);
-    /*
-    SendCurrentAction(CurrentAction);
-    if(recievedAction){
-      CurrentState = RcieveAction;
-    }
-    */
-  }
-  else if (CurrentState == SendAction){
-    CurrentState = SendAction;
-    
-  }
-  return 0;
-}
+
 
 
 /*********************************************************************
@@ -639,7 +582,7 @@ uint16 SensorTag_ProcessEvent( uint8 task_id, uint16 events )
     {
       if (HalIRTempStatus() == TMP006_DATA_READY)
       {
-        readIrTempData();
+        readIrTempData(); //fill the temp buffer inside
         osal_start_timerEx( sensorTag_TaskID, ST_IRTEMPERATURE_READ_EVT, sensorTmpPeriod-TEMP_MEAS_DELAY );
       }
       else if (HalIRTempStatus() == TMP006_OFF)
@@ -819,7 +762,7 @@ uint16 SensorTag_ProcessEvent( uint8 task_id, uint16 events )
     uint8 turnOnAdv = TRUE;
     // Turn on advertising while in a connection
     GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED, sizeof( uint8 ), &turnOnAdv );
-
+    
     return (events ^ ST_ADV_IN_CONNECTION_EVT);
   }
 #endif // PLUS_BROADCASTER
@@ -891,6 +834,7 @@ static void sensorTag_ProcessOSALMsg( osal_event_hdr_t *pMsg )
 static void sensorTag_HandleKeys( uint8 shift, uint8 keys )
 {
   uint8 SK_Keys = 0;
+  KeyEnum Currentkey;
   VOID shift;  // Intentionally unreferenced parameter
 
   if (keys & HAL_KEY_SW_1)
@@ -947,22 +891,28 @@ static void sensorTag_HandleKeys( uint8 shift, uint8 keys )
   if ( keys & HAL_KEY_SW_2 )   // Carbon S2
   {
     SK_Keys |= SK_KEY_LEFT;
+    Currentkey = LeftKey;
   }
 
   if ( keys & HAL_KEY_SW_3 )   // Carbon S3
   {
     SK_Keys |= SK_KEY_RIGHT;
+    // TODO: check the left key press by adding mask to SK_Keys
+    Currentkey = RightKey;
   }
 
+  SetKeyVal(Currentkey); // change key check value
+  
   if (!(keys & HAL_KEY_SW_1))
   {
     // Cancel system reset request
     sysResetRequest = FALSE;
   }
-
+  
   // Set the value of the keys state to the Simple Keys Profile;
   // This will send out a notification of the keys state if enabled
   SK_SetParameter( SK_KEY_ATTR, sizeof ( uint8 ), &SK_Keys );
+  
 }
 
 
@@ -1193,6 +1143,7 @@ static void readIrTempData( void )
 
   if (HalIRTempRead(tData))
   {
+    fillTempBuffer(tData);
     IRTemp_SetParameter( SENSOR_DATA, IRTEMPERATURE_DATA_LEN, tData);
   }
 }
@@ -1521,22 +1472,25 @@ static void gyroChangeCB( uint8 paramID )
  *
  * @return  none
  */
+
 static void simpleChangeCB( uint8 paramID )
 {
   uint8 newValue;
+  uint8 clockarr[5];
+  uint32 StartSystime;
    switch (paramID) {
-  case SIMPLEPROFILE_CHAR1:
+  case SIMPLEPROFILE_ACTION:
     StartSystime = osal_GetSystemClock();
-    SimpleProfile_GetParameter( SIMPLEPROFILE_CHAR1, &newValue );
-    SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR2,sizeof ( uint8 ), &newValue);
+    clockarr[0]=(StartSystime&0xFF000000)>>24;
+    clockarr[1]=(StartSystime&0x00FF0000)>>16;
+    clockarr[2]=(StartSystime&0x0000FF00)>>8;
+    clockarr[3]=(StartSystime&0x000000FF);
 
+    SimpleProfile_GetParameter( SIMPLEPROFILE_ACTION, &newValue );
+    clockarr[4] = newValue;
+    SimpleProfile_SetParameter(SIMPLEPROFILE_DATA,5, &clockarr);
     break;
     
-  case SIMPLEPROFILE_CHAR3:
-    SimpleProfile_GetParameter( SIMPLEPROFILE_CHAR3, &newValue );
-        SimpleProfile_SetParameter(SIMPLEPROFILE_CHAR4,sizeof ( uint8 ), &newValue);
-
-    break;
     
   default:
     // Should not get here

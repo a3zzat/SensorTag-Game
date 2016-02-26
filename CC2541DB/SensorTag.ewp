@@ -3422,6 +3422,12 @@
   <group>
     <name>APP</name>
     <file>
+      <name>$PROJ_DIR$\..\Source\game.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source\game.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Source\OSAL_SensorTag.c</name>
     </file>
     <file>
@@ -3719,10 +3725,10 @@
       <name>$PROJ_DIR$\..\..\Profiles\Roles\peripheral.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\GameProfile\CC254x\simpleGATTprofile.c</name>
+      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\GameProfile\simpleGATTprofile.h</name>
+      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Profiles\Keys\CC254x\simplekeys.c</name>

@@ -101,7 +101,7 @@ const pTaskEventHandlerFn tasksArr[] =
   GAPBondMgr_ProcessEvent,                                          // task 9
   GATTServApp_ProcessEvent,                                         // task 10
   SensorTag_ProcessEvent,                                           // task 11
-  Game_ProcessEvent                                                 // task 12
+  //Game_ProcessEvent                                                 // task 12
     
 };
 
