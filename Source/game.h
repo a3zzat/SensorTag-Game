@@ -61,5 +61,6 @@ typedef struct RingBuffer{
  */
 void SetKeyVal(KeyEnum keyval);
 void fillTempBuffer(uint8* tData);
+void fillAcc(uint8* pBuf);
 
 #endif 

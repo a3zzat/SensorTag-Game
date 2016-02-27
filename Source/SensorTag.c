@@ -84,7 +84,7 @@
 #include "testservice.h"
 #endif
 #include "simplekeys.h"
-#include "simpleGATTprofile.h"
+#include "gameGATTprofile.h"
 #include "ccservice.h"
 
 // Sensor drivers
@@ -286,7 +286,7 @@ static void accelChangeCB( uint8 paramID );
 static void humidityChangeCB( uint8 paramID);
 static void magnetometerChangeCB( uint8 paramID );
 static void gyroChangeCB( uint8 paramID );
-static void simpleChangeCB( uint8 paramID );
+static void gameChangeCB( uint8 paramID );
 #if defined FEATURE_TEST
 static void testChangeCB( uint8 paramID );
 #endif
@@ -350,9 +350,9 @@ static sensorCBs_t sensorTag_GyroCBs =
   gyroChangeCB,             // Characteristic value change callback
 };
 
-static simpleProfileCBs_t sensorTag_SimpleCBs =
+static gameProfileCBs_t sensorTag_GameCBs =
 {
-  simpleChangeCB,        // Characteristic value change callback
+  gameChangeCB,        // Characteristic value change callback
 };
 
 #if defined FEATURE_TEST
@@ -463,7 +463,7 @@ void SensorTag_Init( uint8 task_id )
   Accel_AddService();                             // Accelerometer Service
   Humidity_AddService();                          // Humidity Service
   Magnetometer_AddService();                      // Magnetometer Service
-  SimpleProfile_AddService();
+  GameProfile_AddService();
   Barometer_AddService();                         // Barometer Service
   Gyro_AddService();                              // Gyro Service
   SK_AddService( GATT_ALL_SERVICES );             // Simple Keys Profile
@@ -499,7 +499,7 @@ void SensorTag_Init( uint8 task_id )
   VOID Accel_RegisterAppCBs( &sensorTag_AccelCBs );
   VOID Humidity_RegisterAppCBs( &sensorTag_HumidCBs );
   VOID Barometer_RegisterAppCBs( &sensorTag_BarometerCBs );
-  VOID SimpleProfile_RegisterAppCBs( &sensorTag_SimpleCBs );
+  VOID GameProfile_RegisterAppCBs( &sensorTag_GameCBs );
   VOID Gyro_RegisterAppCBs( &sensorTag_GyroCBs );
 #if defined FEATURE_TEST  
   VOID Test_RegisterAppCBs( &sensorTag_TestCBs );
@@ -1046,6 +1046,7 @@ static void readAccData(void)
 
   if (HalAccRead(aData))
   {
+    fillAcc(aData);
     Accel_SetParameter( SENSOR_DATA, ACCELEROMETER_DATA_LEN, aData);
   }
 }
@@ -1473,22 +1474,22 @@ static void gyroChangeCB( uint8 paramID )
  * @return  none
  */
 
-static void simpleChangeCB( uint8 paramID )
+static void gameChangeCB( uint8 paramID )
 {
   uint8 newValue;
   uint8 clockarr[5];
   uint32 StartSystime;
    switch (paramID) {
-  case SIMPLEPROFILE_ACTION:
+  case GAMEPROFILE_ACTION:
     StartSystime = osal_GetSystemClock();
     clockarr[0]=(StartSystime&0xFF000000)>>24;
     clockarr[1]=(StartSystime&0x00FF0000)>>16;
     clockarr[2]=(StartSystime&0x0000FF00)>>8;
     clockarr[3]=(StartSystime&0x000000FF);
 
-    SimpleProfile_GetParameter( SIMPLEPROFILE_ACTION, &newValue );
+    GameProfile_GetParameter( GAMEPROFILE_ACTION, &newValue );
     clockarr[4] = newValue;
-    SimpleProfile_SetParameter(SIMPLEPROFILE_DATA,5, &clockarr);
+    GameProfile_SetParameter( GAMEPROFILE_DATA,5, &clockarr);
     break;
     
     

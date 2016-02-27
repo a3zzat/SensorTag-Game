@@ -3155,6 +3155,12 @@
       <name>$PROJ_DIR$\..\Source\devinfoservice-st.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\gameGATTprofile.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\gameGATTprofile.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\Profiles\Roles\gap.c</name>
     </file>
     <file>
@@ -3213,12 +3219,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Profiles\Roles\peripheral.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.h</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Profiles\Keys\CC254x\simplekeys.c</name>

@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2219897458</fileChecksum>
+  <fileChecksum>3631258296</fileChecksum>
   <configuration>
     <name>CC2541DK-Sensor</name>
     <outputs>
@@ -3566,6 +3566,9 @@
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\hal_gyro.__cstat.et</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\hal_interrupt.__cstat.et</file>
       <file>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.c</file>
+      <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\gameGATTprofile.__cstat.et</file>
+      <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\gameGATTprofile.r51</file>
+      <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\gameGATTprofile.pbi</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\game.__cstat.et</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\SensorTag.__cstat.et</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Obj\SensorTag_Main.__cstat.et</file>
@@ -3576,17 +3579,15 @@
       <file>$PROJ_DIR$\..\..\common\cc2540\cc254x_f256_imgB.xcl</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\Exe\SensorTag.hex</file>
       <file>$PROJ_DIR$\CC2541DK-Sensor-OAD-ImgB\List\SensorTag.map</file>
+      <file>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\gameGATTprofile.c</file>
+      <file>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\gameGATTprofile.h</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\..\Source\SensorTag.c</name>
       <outputs>
         <tool>
-          <name>ICC8051</name>
-          <file> 45</file>
-        </tool>
-        <tool>
           <name>__cstat</name>
-          <file> 288</file>
+          <file> 291</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -3596,11 +3597,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 226 233 21 10 154 5 148 175 23 31 28 18 30 229 143 234 171 32 189 192 196 157 151 16 6 236 14 239 179 219 211 11 204 25 13 212 160 210 224 217 201 203 200 208 198 218 225 108 215 3 166 156 142 147 169 146 159 0</file>
+          <file> 226 233 21 10 154 5 148 175 23 31 28 18 30 229 143 234 171 32 189 192 196 157 151 16 6 236 14 239 179 219 211 11 204 25 13 212 160 210 224 217 201 203 200 208 198 218 225 301 215 3 166 156 142 147 169 146 159 0</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 142 154 212 148 151 198 5 160 229 211 201 215 159 23 189 175 236 239 13 196 14 204 224 200 225 166 169 10 18 143 234 25 30 32 157 16 219 11 210 217 203 208 218 108 3 156 147 146 0 31 28 171 192 6 179 21</file>
+          <file> 142 154 212 148 151 198 5 160 229 211 201 215 159 23 189 175 236 239 13 196 14 204 224 200 225 166 169 10 18 143 234 25 30 32 157 16 219 11 210 217 203 208 218 301 3 156 147 146 0 31 28 171 192 6 179 21</file>
         </tool>
       </inputs>
     </file>
@@ -3613,7 +3614,7 @@
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 287</file>
+          <file> 290</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -3627,7 +3628,7 @@
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 0 148 21 10</file>
+          <file> 0 10 21 148</file>
         </tool>
       </inputs>
     </file>
@@ -3640,7 +3641,7 @@
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 292</file>
+          <file> 295</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -3663,7 +3664,7 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 63 296 295 293</file>
+          <file> 63 299 298 296</file>
         </tool>
       </outputs>
     </file>
@@ -3672,13 +3673,13 @@
       <outputs>
         <tool>
           <name>XLINK</name>
-          <file> 296 295 293</file>
+          <file> 299 298 296</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 294 56 66 149 153 127 40 136 67 72 33 118 36 71 61 65 42 53 41 81 69 60 74 64 123 79 54 35 38 89 59 96 34 106 80 103 105 49 68 55 52 87 50 43 57 62 115 125 45 78 51 47 83 77 238</file>
+          <file> 297 56 66 149 153 127 40 136 67 72 33 118 36 71 61 65 42 53 41 81 69 60 74 64 123 79 54 35 38 89 59 96 34 106 80 103 105 49 68 55 52 87 50 43 57 62 115 125 45 78 51 47 83 77 238</file>
         </tool>
       </inputs>
     </file>
@@ -4119,7 +4120,7 @@
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 290</file>
+          <file> 293</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -4200,7 +4201,7 @@
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 291</file>
+          <file> 294</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -4227,7 +4228,7 @@
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 289</file>
+          <file> 292</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -4951,10 +4952,6 @@
       <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\simpleGATTprofile.c</name>
       <outputs>
         <tool>
-          <name>ICC8051</name>
-          <file> 51</file>
-        </tool>
-        <tool>
           <name>__cstat</name>
           <file> 241</file>
         </tool>
@@ -4966,14 +4963,45 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 226 233 20 10 154 5 148 175 27 16 23 31 28 18 6 236 235 211 108 224</file>
+          <file> 226 233</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 235 148 23 27 108 10 28 154 16 211 224 5 175 6 31 20 18 236</file>
+          <file> 235 154 28 27 5 175 6 16 211 224 10 148 23 31 20 18 236</file>
         </tool>
       </inputs>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\Profiles\SensorProfile\CC254x\gameGATTprofile.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 288</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 287</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 289</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 226 233 20 10 154 5 148 175 27 16 23 31 28 18 6 236 235 211 301 224</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 235 148 23 27 301 10 28 154 16 211 224 5 175 6 31 20 18 236</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
   </configuration>
 </project>
 

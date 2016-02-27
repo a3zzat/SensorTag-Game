@@ -16,8 +16,6 @@
   KeyEnum KeysValue;
   
   
-  
-
 /*********************************************************************
  * FUNCTIONS
  */
@@ -91,7 +89,6 @@ uint16 CalcVariance(RingBuffer_t * Buffer){
     for(i = 0; i< NUM_SAMPLES; i++){
         total = (average - Buffer->buffer[i])*(average - Buffer->buffer[i]);
     }
-    
     variance = total / (NUM_SAMPLES - 1);
     return variance;
 }
@@ -104,7 +101,6 @@ void checkTempAction(ActionEnum* DoneAction){
   if( variance >= TEMP_VAR_THR ) {
     *DoneAction = TempratureAction;
   }
-  
 }
 
 void CheckShakeAction(ActionEnum* DoneAction){
@@ -119,7 +115,6 @@ void CheckShakeAction(ActionEnum* DoneAction){
   if( (varianceX >= XAXIS_VAR_THR ) || (varianceY >= YAXIS_VAR_THR) || (varianceZ >= ZAXIS_VAR_THR)) {
     *DoneAction = ShakeAction ; 
   }
-  
 }
 
 void CheckButtonAction(ActionEnum* DoneAction){
@@ -144,6 +139,16 @@ void fillTempBuffer(uint8* tData){
   
   DataSample = high << 8 + low;
   fillRingBuffer(&TempBuffer,DataSample);
+}
+
+void fillAcc(uint8* pBuf){
+  uint8 xaxis = pBuf[0];
+  uint8 yaxis = pBuf[1];
+  uint8 zaxis = pBuf[2];
+  
+  fillRingBuffer(&ShakeXaxisBuffer,xaxis);
+  fillRingBuffer(&ShakeYaxisBuffer,yaxis);
+  fillRingBuffer(&ShakeZaxisBuffer,zaxis);
 }
 
 /*********************************************************************
@@ -176,7 +181,6 @@ uint8 CheckCurrentAction(ActionEnum* DoneAction){
     return 0;
   }
   return 1;
-  
 }
 
 /*********************************************************************
@@ -198,7 +202,6 @@ void getRandAction(ActionEnum* CurrentAction){
   RandomAction = rand() % TotalActionCount;
   
   *CurrentAction = RandomAction;
-  
 }
 
 
